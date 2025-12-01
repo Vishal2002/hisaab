@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:15
+    container_name: hisaab_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin@123
+      POSTGRES_DB: hisaab
+    ports:
+      - "5431:5432"
+    volumes:
+      - hisaab_data:/var/lib/postgresql/data
+
+volumes:
+  hisaab_data:
