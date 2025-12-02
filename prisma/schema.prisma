@@ -12,3 +12,27 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id            String    @id @default(cuid())
+  telegramId    String    @unique
+  name          String?
+  monthlyIncome Float     @default(0)
+  createdAt     DateTime  @default(now())
+  expenses      Expense[]
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  amount      Float
+  category    String
+  description String
+  date        DateTime @default(now())
+  month       String   // YYYY-MM format
+  createdAt   DateTime @default(now())
+
+  @@index([userId, month])
+  @@index([category])
+}
