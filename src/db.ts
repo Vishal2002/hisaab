@@ -1,6 +1,7 @@
-import { PrismaClient } from "./generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient({} as any);
+
+const prisma = new PrismaClient();
 
 export interface ExpenseData {
   amount: number;
@@ -80,7 +81,7 @@ export const db = {
 
     return {
       expenses,
-      total: expenses.reduce((sum, e) => sum + e.amount, 0),
+      total: expenses.reduce((sum:any, e:any) => sum + e.amount, 0),
     };
   },
 
@@ -88,14 +89,14 @@ export const db = {
     const expenses = await prisma.expense.findMany({
       where: { userId, month },
     });
-
-    const categoryWise = expenses.reduce((acc, exp) => {
+   
+    const categoryWise = expenses.reduce((acc:any, exp:any) => {
       if (!acc[exp.category]) acc[exp.category] = 0;
       acc[exp.category] += exp.amount;
       return acc;
     }, {} as Record<string, number>);
 
-    const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+    const total = expenses.reduce((sum:any, e:any) => sum + e.amount, 0);
 
     return {
       expenses,

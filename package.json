@@ -16,10 +16,11 @@
   "type": "module",
   "dependencies": {
     "@openai/agents": "^0.3.3",
-    "@prisma/client": "^7.0.1",
+    "@prisma/client": "^5.22.0",
     "@types/node": "^24.10.1",
     "node-telegram-bot-api": "^0.66.0",
-    "prisma": "^7.0.1",
+    "prisma": "^5.22.0",
+    "tsx": "^4.21.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

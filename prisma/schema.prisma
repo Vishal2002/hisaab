@@ -5,12 +5,12 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -30,7 +30,7 @@ model Expense {
   category    String
   description String
   date        DateTime @default(now())
-  month       String   // YYYY-MM format
+  month       String
   createdAt   DateTime @default(now())
 
   @@index([userId, month])
