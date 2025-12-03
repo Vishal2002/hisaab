@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.js",
-    "build": "tsc",
-    "db:push": "prisma db push",
-    "db:studio": "prisma studio"
-  },
-  "keywords": [],
+    "scripts": {
+      "dev": "tsx watch src/index.ts",
+      "start": "tsx src/index.ts",
+      "start:railway": "npx prisma migrate deploy && npm start",
+      "build": "tsc",
+      "db:push": "prisma db push",
+      "db:studio": "prisma studio"
+    },
+  
+  "keywords": ["Finance", "Expense Tracker", "Telegram Bot"],
   "author": "",
   "license": "ISC",
   "type": "module",
