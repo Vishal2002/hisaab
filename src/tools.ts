@@ -134,5 +134,72 @@ export function createTools(userId: string) {
         };
       },
     }),
+    
+    tool({
+        name: 'get_all_expenses',
+        description: 'Get all expenses with user income for any analysis, comparison, or calculation',
+        parameters: z.object({
+          monthOffset: z.number().default(0).describe('0 for current month, -1 for last month, -2 for 2 months ago'),
+        }),
+        execute: async ({ monthOffset }) => {
+          const date = new Date();
+          date.setMonth(date.getMonth() + monthOffset);
+          const month = date.toISOString().slice(0, 7);
+          
+          const user = await db.getUser(userId);
+          const expenses = await db.getMonthExpenses(userId, month);
+          
+          return {
+            month,
+            monthlyIncome: user?.monthlyIncome || 0,
+            expenses: expenses.map(e => ({
+              id: e.id,
+              amount: e.amount,
+              category: e.category,
+              description: e.description,
+              date: e.date.toISOString().slice(0, 10),
+            })),
+          };
+        },
+      }),
+  
+      // 4. Delete expense (undo)
+      tool({
+        name: 'delete_expense',
+        description: 'Delete a specific expense by ID',
+        parameters: z.object({
+          expenseId: z.string().describe('The ID of the expense to delete'),
+        }),
+        execute: async ({ expenseId }) => {
+          const deleted = await db.deleteExpense(expenseId);
+          return {
+            success: true,
+            deleted,
+          };
+        },
+      }),
+  
+      // 5. Update expense (fix mistakes)
+      tool({
+        name: 'update_expense',
+        description: 'Update an existing expense',
+        parameters: z.object({
+          expenseId: z.string().describe('The ID of expense to update'),
+          amount: z.number().positive().optional().describe('New amount'),
+          category: z.string().optional().describe('New category'),
+          description: z.string().optional().describe('New description'),
+        }),
+        execute: async ({ expenseId, amount, category, description }) => {
+          const updated = await db.updateExpense(expenseId, {
+            amount,
+            category,
+            description,
+          });
+          return {
+            success: true,
+            updated,
+          };
+        },
+      }),
   ];
 }

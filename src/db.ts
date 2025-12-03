@@ -116,6 +116,22 @@ export const db = {
       remaining: (user?.monthlyIncome || 0) - summary.total,
     };
   },
+  async deleteExpense(expenseId: string) {
+    return await prisma.expense.delete({
+      where: { id: expenseId },
+    });
+  },
+
+  async updateExpense(expenseId: string, data: { amount?: number; category?: string; description?: string }) {
+    return await prisma.expense.update({
+      where: { id: expenseId },
+      data: {
+        ...(data.amount && { amount: data.amount }),
+        ...(data.category && { category: data.category.toLowerCase().replace(/\s+/g, '_') }),
+        ...(data.description && { description: data.description }),
+      },
+    });
+  },
 };
 
 export default prisma;
