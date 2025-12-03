@@ -122,16 +122,16 @@ export const db = {
     });
   },
 
-  async updateExpense(expenseId: string, data: { amount?: number; category?: string; description?: string }) {
-    return await prisma.expense.update({
-      where: { id: expenseId },
-      data: {
-        ...(data.amount && { amount: data.amount }),
-        ...(data.category && { category: data.category.toLowerCase().replace(/\s+/g, '_') }),
-        ...(data.description && { description: data.description }),
-      },
-    });
-  },
+  // async updateExpense(expenseId: string, data: { amount?: number; category?: string; description?: string }) {
+  //   return await prisma.expense.update({
+  //     where: { id: expenseId },
+  //     data: {
+  //       ...(data.amount && { amount: data.amount }),
+  //       ...(data.category && { category: data.category.toLowerCase().replace(/\s+/g, '_') }),
+  //       ...(data.description && { description: data.description }),
+  //     },
+  //   });
+  // },
 };
 
 export default prisma;

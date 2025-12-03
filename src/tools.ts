@@ -134,7 +134,7 @@ export function createTools(userId: string) {
         };
       },
     }),
-    
+
     tool({
         name: 'get_all_expenses',
         description: 'Get all expenses with user income for any analysis, comparison, or calculation',
@@ -180,26 +180,26 @@ export function createTools(userId: string) {
       }),
   
       // 5. Update expense (fix mistakes)
-      tool({
-        name: 'update_expense',
-        description: 'Update an existing expense',
-        parameters: z.object({
-          expenseId: z.string().describe('The ID of expense to update'),
-          amount: z.number().positive().optional().describe('New amount'),
-          category: z.string().optional().describe('New category'),
-          description: z.string().optional().describe('New description'),
-        }),
-        execute: async ({ expenseId, amount, category, description }) => {
-          const updated = await db.updateExpense(expenseId, {
-            amount,
-            category,
-            description,
-          });
-          return {
-            success: true,
-            updated,
-          };
-        },
-      }),
+    //   tool({
+    //     name: 'update_expense',
+    //     description: 'Update an existing expense',
+    //     parameters: z.object({
+    //       expenseId: z.string().describe('The ID of expense to update'),
+    //       amount: z.number().positive().optional().describe('New amount'),
+    //       category: z.string().optional().describe('New category'),
+    //       description: z.string().optional().describe('New description'),
+    //     }),
+    //     execute: async ({ expenseId, amount, category, description }) => {
+    //       const updated = await db.updateExpense(expenseId, {
+    //         amount,
+    //         category,
+    //         description,
+    //       });
+    //       return {
+    //         success: true,
+    //         updated,
+    //       };
+    //     },
+    //   }),
   ];
 }
