@@ -18,7 +18,7 @@ if (!process.env.OPENAI_API_KEY) {
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
-console.log('🤖 Ghar Ka Hisaab Bot is running...');
+console.log('🤖 Hisaab Bot is running...');
 console.log('✅ Ready to receive messages!\n');
 
 // Handle /start command
@@ -29,7 +29,7 @@ bot.onText(/\/start/, async (msg) => {
   const welcomeMessage = `
 🙏 Namaste ${firstName}!
 
-Main aapka Ghar Ka Hisaab Bot hoon 💰
+Main aapka Hisaab Bot hoon 💰
 
 **Kaise use karein:**
 
