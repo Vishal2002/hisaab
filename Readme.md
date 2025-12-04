@@ -90,4 +90,4 @@ docker-compose up    # Run with Docker
 
 ---
 
-Made with ❤️ 
+Made with ❤️ by Vishal
